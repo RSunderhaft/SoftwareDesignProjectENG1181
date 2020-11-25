@@ -1,61 +1,81 @@
-Company Logo
-Setup.m
+clc
+clear
 
-Download
-Sign up
-Log in
-function [ cpu_ships ] = Setup()
 
-% the "board" of ships is initially empty: 10 by 10 of zeros
-cpu_ships = zeros(10,10);
+% Initialize scene
+my_scene = simpleGameEngine('Battleship.png',84,84);
 
-% length of the ships, ship 1 is the carrier and has length 5, 
-% ship 2 is the battleship, ship 3 is the submarine, ship 4 is the cruiser,
-% and ship 5 is the PT boat
-ship_length = [5,4,3,3,2];
+% Set up variables to name the various sprites
+blank_sprite = 1;
+water_sprite = 2;
+left_ship_sprite = 3;
+horiz_ship_sprite = 4;
+right_ship_sprite = 5;
+top_ship_sprite = 6;
+vert_ship_sprite = 7;
+bot_ship_sprite = 8;
+hit_sprite = 9;
+miss_sprite = 10;
 
-% loop over each ship
-for ship_id = 1:5
+% Display empty board   
+board_display = water_sprite * ones(10,21);
+board_display(:,11) = blank_sprite;
+drawScene(my_scene,board_display)
+
+% Place a ship
+% Place the left pointing end of the ship at position (2,3)
+board_display(2,3) = left_ship_sprite;
+% Place the middle sections of the ship at positions (2,4-6)
+board_display(2,4) = horiz_ship_sprite;
+board_display(2,5) = horiz_ship_sprite;
+board_display(2,6) = horiz_ship_sprite;
+% Place the right pointing end of the ship at position (2,3)
+board_display(2,7) = right_ship_sprite;
+
+drawScene(my_scene,board_display)
+
+% Set up hits and misses layer
+hitmiss_display = blank_sprite * ones(10,21);
+drawScene(my_scene,board_display,hitmiss_display)
+
+
+%% Set board for opponent and player
+
+opponentShips = Setup();
+userShips = Setup();
+
+userChoices = opponentShips;
+opponentChoices = userShips;
+%Figure out how to allow player to select tile
+
+%% Playing the game
+
+while (sum(userChoices, 'all') > -17) && (sum(opponentChoices, 'all') > -17)  %Logic to continue game until all ships have been sank
     
-    % set a flag for the while loop, we will try random locations until we
-    % find one that fits
-    ship_placed = false;
-    while ~ship_placed % continue to try and place the ship until successful
-        % randomly choose between horizontal and vertical orientation by 
-        % setting the horizontal flag here
-        horizontal = randi([0 1]); 
-        if horizontal
-            % set the the row and column of the left end new ship randomly
-            % it can be on any row
-            row = randi([1 10]); 
-            % but only on a certain range of columns depending on its
-            % length
-            col = randi([1 (11-ship_length(ship_id))]);
-            
-            % check to see if that location is empty by summing the values
-            % on the board where the new ship would go, if it ends up being
-            % zero, then there is room to put the new ship there
-            if sum(cpu_ships(row,col:(col+ship_length(ship_id)-1))) == 0
-                % if it is, fill that part of the board with the ships id
-                % number
-                cpu_ships(row,col:(col+ship_length(ship_id)-1)) = ship_id;
-                % and set the ship_place flag to true so that we exit the
-                % loop
-                ship_placed = true;
+    turns = 1; %varibale to allow while loop to repeat of user picks same spot twice
+    
+    while turns == 1
+        [row,col] = getMouseInput(my_scene);
+        
+        if col < 12 %Prevents user from clicking elsewhere and causing error
+            break;
+        end
+        
+        if userChoices(row,col-11) > 0 %if user hit a ship
+            hitmiss_display(row,col) = hit_sprite;
+            shipType = opponentShips(row,col-11);
+            userChoices(row,col-11) = -1;
+            if ~ismember(shipType, userChoices)
+                %%Add Code to add amination of sunk ship
             end
-        else % vertical
-            % if the ship is vertical, do that same thing as above, but now
-            % the row and column indicate the top edge of the ship, and
-            % only certain rows are allowed
-            row = randi([1 (11-ship_length(ship_id))]);
-            col = randi([1 10]);
-            
-            % this part is same as in the horizontal orientation, but for a
-            % range of rows instead of a range of columns
-            if sum(cpu_ships(row:(row+ship_length(ship_id)-1),col)) == 0
-                cpu_ships(row:(row+ship_length(ship_id)-1),col) = ship_id;
-                ship_placed = true;
-            end
+            turns = 0;
+        elseif userChoices(row,col-11) == 0
+            hitmiss_display(row,col) = miss_sprite;
+            turns = 0;
         end
     end
+    drawScene(my_scene,board_display,hitmiss_display)
+
+
+
 end

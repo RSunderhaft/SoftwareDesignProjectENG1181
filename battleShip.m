@@ -40,7 +40,7 @@ drawScene(my_scene,board_display,hitmiss_display)
 
 
 %% Set board for opponent and player
-
+opponentLevel = 0; %0 represents easy mode while 1 represents medium mode
 opponentShips = Setup();
 userShips = Setup();
 
@@ -75,6 +75,28 @@ while (sum(userChoices, 'all') > -17) && (sum(opponentChoices, 'all') > -17)  %L
         end
     end
     drawScene(my_scene,board_display,hitmiss_display)
+    
+    turns = 1;
+    pause(1);
+    while turns == 1
+        
+        if (opponentLevel == 0)%% Gets random locatin for easy mode
+            randCol = randi([1 10],1,1);
+            randRow = randi([1 10],1,1);
+        end
+        
+        if opponentChoices(randRow,randCol) > 0 %if opponent hit a ship
+            hitmiss_display(randRow,randCol) = hit_sprite;
+            shipType = userShips(randRow,randCol);
+            opponentChoices(randRow,randCol) = -1;
+            turns = 0;
+        elseif opponentChoices(randRow,randCol) == 0 %if opponent missed
+            hitmiss_display(randRow,randCol) = miss_sprite;
+            turns = 0;
+        end
+    end 
+    drawScene(my_scene,board_display,hitmiss_display)
+    
 
 
 

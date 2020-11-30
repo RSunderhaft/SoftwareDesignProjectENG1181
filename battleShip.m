@@ -87,10 +87,14 @@ while (sum(userChoices, 'all') > -17) && (sum(opponentChoices, 'all') > -17)  %L
     while turns == 1
         
         if (opponentLevel == 0)%% Gets random locatin for easy mode
+          
             randCol = randi([1 10],1,1);
             randRow = randi([1 10],1,1);
         end
-        
+        if(opponentLevel == 1)%%Starts Normal AI
+          randCol = randi([1 10],1,1);
+            randRow = randi([1 10],1,1);
+        end
         if opponentChoices(randRow,randCol) > 0 %if opponent hit a ship
             hitmiss_display(randRow,randCol) = hit_sprite;
             shipType = userShips(randRow,randCol);

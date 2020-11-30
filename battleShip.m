@@ -40,7 +40,8 @@ drawScene(my_scene,board_display,hitmiss_display)
 
 
 %% Set board for opponent and player
-opponentLevel = 0; %0 represents easy mode while 1 represents medium mode
+opponentLevel = input('AI Difficulty(Enter 0 for easy mode and 1 for Normal): '); %0 represents easy mode while 1 represents medium mode
+
 opponentShips = Setup();
 userShips = Setup();
 

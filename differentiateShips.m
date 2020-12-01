@@ -774,4 +774,27 @@ for i = 2:9
         end
     end
 end
+for a= 1:10
+    
+for i = 1:10
+   if shipParts(a,i)==8
+       shipParts(a,i) = 3;
+   elseif shipParts(a,i) == 6
+       shipParts(a,i) = 4;
+   elseif shipParts(a,i) == 9
+       shipParts(a,i) = 5;
+   elseif shipParts(a,i) == 7
+       shipParts(a,i) = 6;
+   elseif shipParts(a,i) == 11
+       shipParts(a,i) = 7;
+   elseif shipParts(a,i)== 10
+       shipParts(a,i) = 8;
+   end
+       
+       
+       
+    
+    
+end
+end
 end

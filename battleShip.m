@@ -21,16 +21,40 @@ miss_sprite = 10;
 board_display = water_sprite * ones(10,21);
 board_display(:,11) = blank_sprite;
 drawScene(my_scene,board_display)
+opponentShips = Setup();
+userShips = Setup();
 
+userChoices = opponentShips;
+opponentChoices = userShips;
+user_ship_array = differentiateShips(userShips);
+opponent_ship_array = differentiateShips(opponentShips);
 % Place a ship
-% Place the left pointing end of the ship at position (2,3)
-board_display(2,3) = left_ship_sprite;
-% Place the middle sections of the ship at positions (2,4-6)
-board_display(2,4) = horiz_ship_sprite;
-board_display(2,5) = horiz_ship_sprite;
-board_display(2,6) = horiz_ship_sprite;
-% Place the right pointing end of the ship at position (2,3)
-board_display(2,7) = right_ship_sprite;
+
+%board_display(2,3) = left_ship_sprite;
+%board_display(2,4) = horiz_ship_sprite;
+%board_display(2,5) = horiz_ship_sprite;
+%board_display(2,6) = horiz_ship_sprite;
+%board_display(2,7) = right_ship_sprite;
+%Displaying User Ships on Board
+for a = 1:10
+for i = 1:10
+if user_ship_array(a,i)==3
+    board_display(a,i) = left_ship_sprite;
+elseif user_ship_array(a,i)==4
+    board_display(a,i) = horiz_ship_sprite;
+  elseif user_ship_array(a,i)==5
+    board_display(a,i) = right_ship_sprite; 
+      elseif user_ship_array(a,i)==6
+    board_display(a,i) = top_ship_sprite;
+    elseif user_ship_array(a,i)==7
+    board_display(a,i) = vert_ship_sprite; 
+      elseif user_ship_array(a,i)==8
+    board_display(a,i) = bot_ship_sprite; 
+end
+end
+end
+
+
 
 drawScene(my_scene,board_display)
 
@@ -47,11 +71,7 @@ opponentLevel = input('AI Difficulty(Enter 0 for easy mode and 1 for Normal): ')
             opponentLevel = input('Reselect AI Difficulty: ');
             end
  end
-opponentShips = Setup();
-userShips = Setup();
 
-userChoices = opponentShips;
-opponentChoices = userShips;
 %Figure out how to allow player to select tile
 
 %% Playing the game

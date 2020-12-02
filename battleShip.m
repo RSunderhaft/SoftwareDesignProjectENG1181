@@ -76,7 +76,7 @@ drawScene(my_scene,board_display,hitmiss_display)
 
 %% Set board for opponent and player
 opponentLevel = input('AI Difficulty(Enter 0 for easy mode and 1 for Normal): '); %0 represents easy mode while 1 represents medium mode
-while (opponentLevel~=0 || opponentLevel~=1)
+while (opponentLevel~=0 && opponentLevel~=1)
             fprintf('Error: Not valid Level \n');
             opponentLevel = input('Reselect AI Difficulty: ');
 end

@@ -23,7 +23,18 @@ board_display(:,11) = blank_sprite;
 drawScene(my_scene,board_display)
 
 opponentShips = Setup();
-userShips = Setup();
+
+shipChoice = input('Would you like to place your own ships? (0 for no, 1 for yes): ');
+while (shipChoice~=0 && shipChoice~=1)
+            fprintf('Error: Invalid choice. \n');
+            shipChoice = input('Would you like to place your own ships? (0 for no, 1 for yes): ');
+end
+
+if (shipChoice == 1)
+    userShips = placeShip();
+else
+    userShips = Setup();
+end
 
 global opponentRandShot;
 opponentRandShot = 1:100; % array for opponent to easily random pick shots

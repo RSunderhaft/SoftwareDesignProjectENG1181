@@ -173,3 +173,23 @@ while (sum(userHits, 'all') > -17) && (sum(opponentHits, 'all') > -17)  %Logic t
     drawScene(my_scene,board_display,hitmiss_display)
     
 end    
+
+ for a = 1:10
+for i = 1:10
+if opponent_ship_array(a,i)==3
+    board_display(a,i+11) = left_ship_sprite;
+elseif opponent_ship_array(a,i)==4
+    board_display(a,i+11) = horiz_ship_sprite;
+  elseif opponent_ship_array(a,i)==5
+    board_display(a,i+11) = right_ship_sprite; 
+      elseif opponent_ship_array(a,i)==6
+    board_display(a,i+11) = top_ship_sprite;
+    elseif opponent_ship_array(a,i)==7
+    board_display(a,i+11) = vert_ship_sprite; 
+      elseif opponent_ship_array(a,i)==8
+    board_display(a,i+11) = bot_ship_sprite; 
+end
+end
+end
+
+drawScene(my_scene,board_display,hitmiss_display)   

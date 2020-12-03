@@ -17,7 +17,7 @@ bot_ship_sprite = 8;
 hit_sprite = 9;
 miss_sprite = 10;
 
-% Display empty board   
+% Display empty board 
 board_display = water_sprite * ones(10,21);
 board_display(:,11) = blank_sprite;
 drawScene(my_scene,board_display)
@@ -48,32 +48,14 @@ opponent_ship_array = differentiateShips(opponentShips);
 
 userHits = opponentShips; %stores -1 values for only the ships they hit
 opponentHits = userShips;
-%Figure out how to allow player to select tile
 
-% Place a ship
-
-%board_display(2,3) = left_ship_sprite;
-%board_display(2,4) = horiz_ship_sprite;
-%board_display(2,5) = horiz_ship_sprite;
-%board_display(2,6) = horiz_ship_sprite;
-%board_display(2,7) = right_ship_sprite;
-%Displaying User Ships on Board
-for a = 1:10
+%Displaying User ships on board
 for i = 1:10
-if user_ship_array(a,i)==3
-    board_display(a,i) = left_ship_sprite;
-elseif user_ship_array(a,i)==4
-    board_display(a,i) = horiz_ship_sprite;
-  elseif user_ship_array(a,i)==5
-    board_display(a,i) = right_ship_sprite; 
-      elseif user_ship_array(a,i)==6
-    board_display(a,i) = top_ship_sprite;
-    elseif user_ship_array(a,i)==7
-    board_display(a,i) = vert_ship_sprite; 
-      elseif user_ship_array(a,i)==8
-    board_display(a,i) = bot_ship_sprite; 
-end
-end
+    for j = 1:10
+        if user_ship_array(i,j) >= 3
+            board_display(i,j) = user_ship_array(i,j);
+        end
+    end
 end
 
 
@@ -92,7 +74,7 @@ while (opponentLevel~=0 && opponentLevel~=1)
             opponentLevel = input('Reselect AI Difficulty: ');
 end
 
-%Figure out how to allow player to select tile
+
 
 %% Playing the game
 
@@ -112,7 +94,8 @@ while (sum(userHits, 'all') > -17) && (sum(opponentHits, 'all') > -17)  %Logic t
             userChoices(row,col-11) = -1;
             userHits(row,col-11) = -1;
             if ~ismember(shipType, userChoices)
-                %Add Code to add amination of sunk ship
+                [board_display] = displaySunkShips(shipType, opponentShips, opponent_ship_array, board_display);
+                drawScene(my_scene,board_display,hitmiss_display);
             end
             turns = 0;
         elseif userChoices(row,col-11) == 0
@@ -174,22 +157,13 @@ while (sum(userHits, 'all') > -17) && (sum(opponentHits, 'all') > -17)  %Logic t
     
 end    
 
- for a = 1:10
-for i = 1:10
-if opponent_ship_array(a,i)==3
-    board_display(a,i+11) = left_ship_sprite;
-elseif opponent_ship_array(a,i)==4
-    board_display(a,i+11) = horiz_ship_sprite;
-  elseif opponent_ship_array(a,i)==5
-    board_display(a,i+11) = right_ship_sprite; 
-      elseif opponent_ship_array(a,i)==6
-    board_display(a,i+11) = top_ship_sprite;
-    elseif opponent_ship_array(a,i)==7
-    board_display(a,i+11) = vert_ship_sprite; 
-      elseif opponent_ship_array(a,i)==8
-    board_display(a,i+11) = bot_ship_sprite; 
-end
-end
+
+for i = 1:10 % displays all enemy ships when the game is over
+    for j = 1:10
+        if opponent_ship_array(i,j) >= 3
+            board_display(i,j + 11) = opponent_ship_array(i,j);
+        end
+    end
 end
 
-drawScene(my_scene,board_display,hitmiss_display)   
+drawScene(my_scene,board_display,hitmiss_display)  

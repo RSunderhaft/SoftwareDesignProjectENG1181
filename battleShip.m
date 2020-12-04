@@ -137,7 +137,7 @@ while (sum(userHits, 'all') > -17) && (sum(opponentHits, 'all') > -17)  %Logic t
         end
         randCol = floor((cell - 1) / 10) + 1;
 
-        fprintf("cell: %i  randRow: %i   randCol: %i\n", cell, randRow, randCol) % Used for error checking
+        %fprintf("cell: %i  randRow: %i   randCol: %i\n", cell, randRow, randCol) % Used for error checking
         
 % Opponent hit logic
         if opponentChoices(randRow,randCol) > 0 %if opponent hit a ship

@@ -1,7 +1,7 @@
 clc
 clear
-
-
+gameRun=1;
+while gameRun==1
 % Initialize scene
 my_scene = simpleGameEngine('Battleship.png',84,84);
 
@@ -167,3 +167,16 @@ for i = 1:10 % displays all enemy ships when the game is over
 end
 
 drawScene(my_scene,board_display,hitmiss_display)  
+fprintf('Game Over\n');
+  gameRun=input('Would you like to play again? (Enter 1 if yes/ 0 if no): \n');
+    while true
+if gameRun ~= 1 && gameRun ~=0
+    fprintf('Error: Incorrect Value \n');
+    gameRun=input('Would you like to play again? (Enter 1 if yes/ 0 if no): \n');
+end
+if gameRun==1 || gameRun==0
+    break;
+end
+    end  
+end
+fprintf('Thank You for Playing!\n');

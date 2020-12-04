@@ -2,7 +2,7 @@ clc
 clear
 
 gameRun = 1;
-while gameRun % While loop to continue play if user wants to play again
+while gameRun ==1 % While loop to continue play if user wants to play again
     % Initialize scene
     my_scene = simpleGameEngine('Battleship.png',84,84);
 

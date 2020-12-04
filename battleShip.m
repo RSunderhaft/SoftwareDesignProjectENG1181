@@ -168,9 +168,9 @@ while gameRun % While loop to continue play if user wants to play again
 
     % Output when game is over to display winner.
     if sum(userHits, 'all') < sum(opponentHits, 'all')
-        fprintf("You win. Congrats!");
+        fprintf("You win. Congrats!\n");
     else
-        fprintf("You lose. Better Luck next time.");
+        fprintf("You lose. Better Luck next time.\n");
     end
 
 

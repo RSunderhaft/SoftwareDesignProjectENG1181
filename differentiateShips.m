@@ -1,5 +1,8 @@
+% Uses the set up array to create a new array with the parts of the ships differentiated by different numbers
 function [shipParts] = differentiateShips(ships)
+% Sets up an empty 10 by 10 array for the parts of the ships
 shipParts = zeros(10,10);
+% Basic conditional statements to determine what part of each ship is at each index
 if (ships(1,1) ~= 0) && (ships(2,1) == ships(1,1))
     shipParts(1,1) = 7;
 elseif (ships(1,1) ~= 0) && (ships(1,1) == ships(1,2))
@@ -20,6 +23,8 @@ if (ships(1,10) ~= 0) && (ships(2,10) == ships(1,10))
 elseif (ships(1,10) ~= 0) && (ships(1,10) == ships(1,9))
     shipParts(1,10) = 9;
 end
+% Loop checks all indices other than the corners that were checked above this is sadly the most intuitive method I could think of to accomplish this
+% The loop includes simple if statements to assign new values to indices that have ships in order to easily show the ship graphics
 for i = 2:9
     if (ships(1,i) == 1)
         if (ships(2,i) == 1)
@@ -774,6 +779,7 @@ for i = 2:9
         end
     end
 end
+% Assigns values that can be used assign to ship sprites
 for a= 1:10
     
 for i = 1:10
